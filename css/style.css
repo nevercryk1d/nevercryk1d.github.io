@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    cursor: pointer;
+}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    font-size: 24px;
+}
+
+#background-gif {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    z-index: -1;
+}
+
+#content {
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s;
+    padding: 0 15px; /* Отступы по бокам на мобилках */
+    max-width: 480px; /* Максимальная ширина для удобства чтения */
+}
+
+.profile {
+    margin-bottom: 20px;
+}
+
+.profile a {
+    color: white;
+    word-break: break-word; /* Чтобы ссылки не выходили за экран */
+}
+
+#avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid white;
+    transition: width 0.3s, height 0.3s;
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+    flex-wrap: wrap; /* Перенос иконок на маленьких экранах */
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    transition: width 0.3s, height 0.3s;
+}
+
+.social-btn {
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+    display: inline-block;
+}
+
+.social-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap; /* Перенос ссылок на мобильных */
+}
+
+.links a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: opacity 0.3s;
+    word-break: break-word;
+}
+
+.links a:hover {
+    opacity: 0.7;
+}
+
+.link-separator {
+    color: rgba(255, 255, 255, 0.3);
+    user-select: none;
+}
+
+.divider {
+    width: 50%;
+    height: 1px;
+    margin: 15px auto;
+    max-width: 300px;
+}
+
+/* Медиазапросы для телефонов */
+@media (max-width: 480px) {
+    #avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .social-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .links {
+        gap: 5px;
+    }
+
+    .links a {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .divider {
+        width: 80%;
+    }
+
+    #content {
+        padding: 0 10px;
+        max-width: 100%;
+    }
+}
