@@ -14,42 +14,284 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://yourdomain.com">
   <meta name="theme-color" content="#10b981" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      max-height: 80rem;
+      overflow: hidden;
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0, 255, 140, 0.2);
+      box-shadow: 0 0 15px rgba(0, 255, 140, 0.5);
+      animation: float linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0.5); }
+      100% { transform: translateY(-120vh) scale(1); }
+    }
+
+      .animate-blink {
+    animation: blink 0.7s infinite steps(1);
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+  }
+  </style>
 </head>
 <body class="bg-gray-900 text-white font-sans antialiased">
+<div id="terminal-preloader" class="fixed inset-0 z-50 bg-black text-green-400 font-mono text-sm p-6 flex flex-col justify-end transition-opacity duration-700">
+  <div class="overflow-hidden">
+    <pre id="terminal-output" class="whitespace-pre-wrap leading-relaxed"></pre>
+    <pre id="ascii-spinner" class="text-green-500 text-lg font-bold leading-none mt-4 hidden"></pre>
+  </div>
+</div>
+<div class="fade-in">
+  <div id="bubbles-container" class="absolute inset-0 z-0"></div>
   <div class="min-h-screen flex flex-col items-center justify-center px-4 py-10">
     <div class="text-center mb-6">
       <img src="imgs/avatar.jpg" alt="Аватар" class="rounded-full w-28 h-28 mx-auto mb-4 border-4 border-green-700" />
-      <h1 class="text-2xl font-bold">NeverCryK1d</h1>
+      <h1 class="text-2xl font-bold flex justify-center items-center">
+          NeverCryK1d<span class="animate-blink">|</span>
+      </h1>
+
       <p class="text-sm text-gray-400 mt-1">Fullstack Developer (Mid-level) • KZ</p>
       <div class="flex justify-center items-center p-5">
         <img src="https://img.shields.io/endpoint?style=for-the-badge&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D33585" alt="CodeTime Badge">
       </div>
     </div>
     <div class="max-w-md text-center text-gray-300 mb-10 text-sm sm:text-base">
-      <p>Привет, я NeverCryK1d — fullstack-разработчик с опытом создания современных веб-приложений от идеи до деплоя.  
-      Специализируюсь на JavaScript, Node.js, React, Python, PostgreSQL, Docker и не только. Люблю чистый код, нестандартные решения и командную работу.</p>
+      <p>Здравствуйте, меня зовут <strong>NeverCryK1d</strong>. Я — fullstack-разработчик, специализирующийся на создании технологически выверенных веб-приложений полного цикла — от концепции до масштабируемого продакшена.  
+В своей работе опираюсь на стек <strong>JavaScript</strong>, <strong>Node.js</strong>, <strong>Python</strong>,, <strong>Docker</strong> и смежные инструменты.  
+Придерживаюсь принципов чистого кода, гибкой архитектуры и эффективной командной динамики. Решаю задачи не шаблонно, а стратегически — с прицелом на результат и масштаб.</p>
+
     </div>
     <div class="w-full max-w-xl px-2">
-      <a href="https://VelionProject.github.io" target="_blank" class="relative flex flex-col sm:flex-row bg-gray-800 hover:bg-green-700 transition rounded-xl p-4 shadow-md overflow-hidden">
-        <img src="imgs/velionbot.png" alt="VelionBot" class="w-12 h-12 rounded-full mb-3 sm:mb-0 sm:mr-4 border-2 border-green-500 flex-shrink-0" />
-        <div class="flex-1">
-          <h2 class="text-lg font-semibold">🤖 VelionBot</h2>
-          <p class="text-sm text-gray-300 mt-1">VelionBot — универсальный Telegram-бот, объединяющий твою игровую активность и онлайн-личность. Просматривай Telegram-профиль, подключай Steam и Twitch, делись карточками и следи за активностью друзей.</p>
-          <div class="flex space-x-3 mt-2">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" class="w-5 h-5" />
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" class="w-5 h-5" />
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="w-5 h-5" />
-          </div>
-        </div>
-        <div class="mt-4 sm:mt-0 sm:ml-4 flex items-center">
-          <img src="imgs/VelionGif.gif" alt="VelionGif" class="w-20 h-20 object-contain pointer-events-none" />
-        </div>
-      </a>
+  <a href="https://www.velion.site" target="_blank"
+     class="relative flex flex-col sm:flex-row bg-gradient-to-br from-gray-800 to-gray-900 hover:from-green-800/80 hover:to-green-600/80 transition rounded-2xl p-5 shadow-md border border-green-700/50 group overflow-hidden">
+    <img src="imgs/velionbot.png" alt="VelionBot"
+         class="w-12 h-12 rounded-full mb-3 sm:mb-0 sm:mr-4 border-2 border-green-500 shadow-green-500/30 shadow-md flex-shrink-0" />
+    <div class="flex-1">
+      <h2 class="text-lg font-semibold text-green-400 group-hover:text-white transition">🤖 VelionBot</h2>
+      <p class="text-sm text-gray-300 mt-1">
+        <strong>VelionBot</strong> — модульный Discord-бот нового поколения с интеграциями, экономикой и кастомными системами.  
+Создан для эффективного управления сообществами с акцентом на стиль, стабильность и расширяемость.
+      </p>
+      <div class="flex space-x-3 mt-3 items-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" class="w-5 h-5" />
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" class="w-5 h-5" />
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="w-5 h-5" />
+        <svg width="16px" height="16px" viewBox="0 0 256 154" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+    <defs>
+        <linearGradient x1="-2.77777778%" y1="32%" x2="100%" y2="67.5555556%" id="linearGradient-1">
+            <stop stop-color="#2298BD" offset="0%"></stop>
+            <stop stop-color="#0ED7B5" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g>
+        <path d="M128,-1.0658141e-14 C93.8666667,-1.0658141e-14 72.5333333,17.0666667 64,51.2 C76.8,34.1333333 91.7333333,27.7333333 108.8,32 C118.537481,34.4343704 125.497363,41.4985481 133.201067,49.3184 C145.750756,62.0567704 160.275437,76.8 192,76.8 C226.133333,76.8 247.466667,59.7333333 256,25.6 C243.2,42.6666667 228.266667,49.0666667 211.2,44.8 C201.462519,42.3656296 194.502637,35.3014519 186.798933,27.4816 C174.249244,14.7432296 159.724563,-1.0658141e-14 128,-1.0658141e-14 Z M64,76.8 C29.8666667,76.8 8.53333333,93.8666667 0,128 C12.8,110.933333 27.7333333,104.533333 44.8,108.8 C54.5374815,111.23437 61.497363,118.298548 69.2010667,126.1184 C81.7507556,138.85677 96.275437,153.6 128,153.6 C162.133333,153.6 183.466667,136.533333 192,102.4 C179.2,119.466667 164.266667,125.866667 147.2,121.6 C137.462519,119.16563 130.502637,112.101452 122.798933,104.2816 C110.249244,91.5432296 95.724563,76.8 64,76.8 Z" fill="url(#linearGradient-1)"></path>
+    </g>
+</svg>
+        
+      </div>
     </div>
-    <footer class="mt-10 text-xs text-gray-500 text-center">
-      &copy; 2025 NeverCryK1d
-    </footer>
-  </div>
+    <div class="mt-4 sm:mt-0 sm:ml-4 flex items-center">
+      <img src="imgs/VelionGif.gif" alt="VelionGif" class="w-20 h-20 object-contain pointer-events-none" />
+    </div>
+  </a>
+</div>
+<div class="flex justify-center mt-6 gap-4">
+  <a href="https://t.me/nevercryk1d" target="_blank" title="Telegram" class="cursor-pointer z-50">
+    <img src="imgs/telegram.svg" alt="Telegram" class="w-8 h-8 hover:scale-110 transition-transform "  />
+  </a>
+
+  <a href="https://status.velion.site" target="_blank" title="VelionBot" class="cursor-pointer z-50">
+    <img src="imgs/velionbot.png" alt="VelionBot" class="w-8 h-8 rounded-full hover:scale-110 transition-transform" />
+  </a>
+
+  <a href="https://discordapp.com/users/603999589334515712" target="_blank" title="Discord" class="cursor-pointer z-50">
+    <img src="imgs/discord.svg" alt="Discord" class="w-8 h-8 hover:scale-110 transition-transform" />
+  </a>
+</div>
+
+<audio id="bg-music" loop>
+  <source src="audio/bg.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById('bg-music');
+  audio.volume = 0.1;
+
+  // Обёртка для автозапуска после взаимодействия
+  function tryPlayAudio() {
+    audio.play().catch(err => {
+      console.warn("Автозапуск заблокирован. Ожидаем взаимодействия...");
+      // Привязываем повторный запуск после клика
+      document.addEventListener('click', () => {
+        audio.play();
+      }, { once: true });
+    });
+  }
+
+  // Вызов этой функции после завершения анимации терминала
+  function onTerminalEnd() {
+    tryPlayAudio();
+  }
+
+  // Пример: запуск через 3 секунды (имитируем окончание терминала)
+  setTimeout(onTerminalEnd, 3000);
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const count = 45;
+    for (let i = 0; i < count; i++) {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+
+      const size = Math.random() * 40 + 20;
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.animationDuration = `${10 + Math.random() * 10}s`;
+      bubble.style.top = `${Math.random() * 100}vh`;
+
+      document.getElementById("bubbles-container").appendChild(bubble);
+    }
+  });
+</script>
+<script>
+  const lines = [
+    "[  OK  ] Initializing VelionCore v4.5.2...",
+    "[  OK  ] Loading UI Components...",
+    "[  OK  ] Applying SteamBridge protocol...",
+    "[  OK  ] Authenticating Discord ID#2916...",
+    "[  OK  ] VelionBank API synced successfully.",
+    "[  OK  ] Loading Twitch Integration...",
+    "[  OK  ] Loading SteamUser data...",
+    "[  OK  ] Injecting /bind_steam handlers...",
+    "[  OK  ] Injecting /tgprofile endpoint...",
+    "[  OK  ] Starting WebSocket Secure Tunnel...",
+    "[  OK  ] Establishing ETH node...",
+    "[  OK  ] Applying tailwind.custom.vela.css...",
+    "[  OK  ] Syncing 🧠 AI-Profile Recognition...",
+    "[  OK  ] Activating Velion Terminal UI...",
+    "[  OK  ] Plugin [V-BankSecurity] active",
+    "[  OK  ] Plugin [Twitch-Sync] active",
+    "[  OK  ] Plugin [SteamRichCard] active",
+    "[  OK  ] Plugin [RoleManager+XP] active",
+    "[  OK  ] Plugin [Casino.V1] active",
+    "[  OK  ] Plugin [GameLauncher] active",
+    "[  OK  ] Running Self-Diagnostic...",
+    "[  OK  ] No critical issues found.",
+    "[  OK  ] Syncing with RenderAPI...",
+    "[  OK  ] Checking GitHub Hooks...",
+    "[  OK  ] Finalizing VelionInterface...",
+    "[  OK  ] Mounting Velion Dashboard UI...",
+    "[  OK  ] Rendering SVG glyphs...",
+    "[  OK  ] Injecting custom-footer.component...",
+    "[  OK  ] Fetching encrypted profile cache...",
+    "[  OK  ] Boot complete.",
+    "",
+    "█ VELION SYSTEM READY. BOOTING INTERFACE..."
+  ];
+
+  const asciiFrames = [
+`░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░ 
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        
+ ░▒▓█▓▒▒▓█▓▒░░▒▓█▓▒░        
+ ░▒▓█▓▒▒▓█▓▒░░▒▓██████▓▒░   
+  ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░        
+  ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░        
+   ░▒▓██▓▒░  ░▒▓████████▓▒░ 
+                            
+                            `,
+
+`░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓█▓▒░      ░▒▓█▓▒░ 
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░ 
+ ░▒▓█▓▒▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░ 
+ ░▒▓█▓▒▒▓█▓▒░░▒▓██████▓▒░ ░▒▓█▓▒░      ░▒▓█▓▒░ 
+  ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░ 
+  ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░ 
+   ░▒▓██▓▒░  ░▒▓████████▓▒░▒▓████████▓▒░▒▓█▓▒░ 
+                                               
+                                               `,
+
+`░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓██████▓▒░  
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+ ░▒▓█▓▒▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+ ░▒▓█▓▒▒▓█▓▒░░▒▓██████▓▒░ ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+  ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+  ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+   ░▒▓██▓▒░  ░▒▓████████▓▒░▒▓████████▓▒░▒▓█▓▒░░▒▓██████▓▒░  
+                                                            
+                                                           `,
+
+`░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓██████▓▒░░▒▓███████▓▒░  
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+ ░▒▓█▓▒▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+ ░▒▓█▓▒▒▓█▓▒░░▒▓██████▓▒░ ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+  ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+  ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+   ░▒▓██▓▒░  ░▒▓████████▓▒░▒▓████████▓▒░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░ 
+                                                                         `
+  ];
+
+  const output = document.getElementById("terminal-output");
+  const preloader = document.getElementById("terminal-preloader");
+  const mainBody = document.body;
+  const spinner = document.getElementById("ascii-spinner");
+
+  let i = 0;
+
+  function typeLine() {
+    if (i < lines.length) {
+      output.textContent += lines[i++] + "\n";
+      setTimeout(typeLine, 100 + Math.random() * 50);
+    } else {
+      startSpinner();
+    }
+  }
+
+  let frameIndex = 0;
+  let spinnerInterval;
+
+  function startSpinner() {
+    spinner.classList.remove("hidden");
+    spinnerInterval = setInterval(() => {
+      spinner.textContent = asciiFrames[frameIndex % asciiFrames.length];
+      frameIndex++;
+    }, 100);
+
+    // Stop spinner and show site after 1s
+    setTimeout(() => {
+      clearInterval(spinnerInterval);
+      spinner.classList.add("hidden");
+      preloader.classList.add("opacity-0");
+
+      setTimeout(() => {
+        preloader.style.display = "none";
+        document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+      }, 500);
+    }, 700);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    typeLine();
+  });
+</script>
 </body>
 </html>
